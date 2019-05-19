@@ -14,39 +14,29 @@ import json
 import os
 from functools import partial
 
+ser = serial.Serial('/dev/ttyUSB0')   # print the serial data sent by UNO
 
-ser = serial.Serial(
-        port="/dev/ttyAMA0",
-        baudrate=9600
-        )
-
-import serial
-ser = serial.Serial('/dev/ttyUSB0')         # enable the serial port
-while 1:                                           # execute the loop forever
-    ser.readline()                                    # read the serial data sent by the UNO
-    print(ser.readline())                             # print the serial data sent by UNO
-
-    GPIO.setmode(GPIO.BCM)
-    GPIO.setwarnings(False)
+GPIO.setmode(GPIO.BCM)
+GPIO.setwarnings(False)
 
 # Sensor should be set to Adafruit_DHT.DHT11,
 # Adafruit_DHT.DHT22, or Adafruit_DHT.AM2302.
-    sensor = Adafruit_DHT.DHT22
+sensor = Adafruit_DHT.DHT22
 
 # Example using a Beaglebone Black with DHT sensor
 # connected to pin P8_11.
-    pin = 18
+pin = 18
 
 # Try to grab a sensor reading.  Use the read_retry method which will retry up
 # to 15 times to get a sensor reading (waiting 2 seconds between each retry).
-    humidity, temperature = Adafruit_DHT.read_retry(sensor, pin)
+humidity, temperature = Adafruit_DHT.read_retry(sensor, pin)
 
-    firebase = firebase.FirebaseApplication('https://rasp-dht22-and-soil.firebaseio.com/', None)
+firebase = firebase.FirebaseApplication('https://rasp-dht22-and-soil.firebaseio.com/', None)
 
 #firebase.put("/dht", "/temp", "0.00")
 #firebase.put("/dht", "/humidity", "0.00")
 
-    init = False
+init = False
 # Broadcom pin-numbering scheme
 
 
